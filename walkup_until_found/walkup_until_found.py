@@ -8,7 +8,6 @@ from icecream import ic
 ic.configureOutput(includeContext=True)
 from shutil import get_terminal_size
 ic.lineWrapWidth, _ = get_terminal_size((80, 20))
-#ic.disable()
 
 
 # DONT CHANGE FUNC NAME
@@ -24,7 +23,6 @@ def cli(starting_dir, name_to_find, verbose):
     name_to_find = Path(name_to_find)
     if verbose:
         ic(name_to_find)
-
 
     while True:
         path_guess = starting_dir / name_to_find
