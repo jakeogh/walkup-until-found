@@ -2,21 +2,21 @@
 
 #import os
 #import sys
-import click
 from pathlib import Path
-from icecream import ic
-ic.configureOutput(includeContext=True)
-from shutil import get_terminal_size
-ic.lineWrapWidth, _ = get_terminal_size((80, 20))
+
+import click
+from asserttool import ic
 
 
-# DONT CHANGE FUNC NAME
-@click.command()
-@click.argument("starting_dir", type=click.Path(exists=True, dir_okay=True, file_okay=False, path_type=str, allow_dash=True), nargs=1, required=True)
-@click.argument("name_to_find", type=str, nargs=1, required=True)
-@click.option('--verbose', is_flag=True)
-def cli(starting_dir, name_to_find, verbose):
-    starting_dir = Path(starting_dir).resolve()
+def walkup_until_found(*,
+                       path: Path,
+                       name: str,
+                       verbose: bool,
+                       debug: bool,):
+
+    name_to_find = name
+    starting_dir = Path(path).resolve()
+    assert starting_dir.is_dir()
     if verbose:
         ic(starting_dir)
     assert '/' not in name_to_find
@@ -29,12 +29,28 @@ def cli(starting_dir, name_to_find, verbose):
         if verbose:
             ic(path_guess)
         if path_guess.exists():
-            print(path_guess.as_posix())
-            quit(0)
+            return path_guess.as_posix()
+
         starting_dir = starting_dir.parent
         if len(starting_dir.parts) == 1:
-            exit(1)
+            raise FileNotFoundError(name_to_find)
 
 
-if __name__ == "__main__":
-    cli()
+
+@click.command()
+@click.argument("starting_dir", type=click.Path(exists=True,
+                                                dir_okay=True,
+                                                file_okay=False,
+                                                path_type=Path,
+                                                allow_dash=True,), nargs=1, required=True)
+@click.argument("name_to_find", type=str, nargs=1, required=True)
+@click.option('--verbose', is_flag=True)
+@click.option('--debug', is_flag=True)
+def cli(starting_dir: Path,
+        name_to_find: str,
+        verbose: bool,
+        debug: bool,
+        ):
+
+    result = walkup_until_found(path=starting_dir, name=name_to_find, verbose=verbose, debug=debug)
+    print(result)
