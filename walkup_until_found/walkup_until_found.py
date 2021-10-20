@@ -29,7 +29,7 @@ def walkup_until_found(*,
         if verbose:
             ic(path_guess)
         if path_guess.exists():
-            return path_guess.as_posix()
+            return path_guess
 
         starting_dir = starting_dir.parent
         if len(starting_dir.parts) == 1:
@@ -53,4 +53,4 @@ def cli(starting_dir: Path,
         ):
 
     result = walkup_until_found(path=starting_dir, name=name_to_find, verbose=verbose, debug=debug)
-    print(result)
+    print(result.as_posix())
