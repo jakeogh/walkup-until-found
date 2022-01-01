@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-#import os
-#import sys
 from pathlib import Path
 
 import click
@@ -12,7 +10,7 @@ def walkup_until_found(*,
                        path: Path,
                        name: str,
                        verbose: bool,
-                       debug: bool,):
+                       ):
 
     name_to_find = name
     starting_dir = Path(path).resolve()
@@ -42,15 +40,13 @@ def walkup_until_found(*,
                                                 dir_okay=True,
                                                 file_okay=False,
                                                 path_type=Path,
-                                                allow_dash=True,), nargs=1, required=True)
+                                                allow_dash=True,), nargs=1, required=True,)
 @click.argument("name_to_find", type=str, nargs=1, required=True)
 @click.option('--verbose', is_flag=True)
-@click.option('--debug', is_flag=True)
 def cli(starting_dir: Path,
         name_to_find: str,
         verbose: bool,
-        debug: bool,
         ):
 
-    result = walkup_until_found(path=starting_dir, name=name_to_find, verbose=verbose, debug=debug)
+    result = walkup_until_found(path=starting_dir, name=name_to_find, verbose=verbose,)
     print(result.as_posix())
