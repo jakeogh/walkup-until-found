@@ -10,7 +10,7 @@ def walkup_until_found(*,
                        path: Path,
                        name: str,
                        verbose: bool,
-                       ):
+                       ) -> str:
 
     name_to_find = name
     starting_dir = Path(path).resolve()
