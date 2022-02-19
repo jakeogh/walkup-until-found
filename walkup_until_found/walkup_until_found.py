@@ -60,7 +60,8 @@ def walkup_until_found(
 @click.pass_context
 def cli(
     ctx,
-    *starting_dir: Path,
+    *,
+    starting_dir: Path,
     name_to_find: str,
     verbose: Union[bool, int, float],
     verbose_inf: bool,
