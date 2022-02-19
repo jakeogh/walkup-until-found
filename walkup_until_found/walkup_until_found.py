@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
+from typing import Union
 
 import click
 from asserttool import ic
+from clicktool import click_add_options
+from clicktool import click_global_options
+from clicktool import tv
+from mptool import output
 
 
-def walkup_until_found(*,
-                       path: Path,
-                       name: str,
-                       verbose: bool,
-                       ) -> str:
+def walkup_until_found(
+    *,
+    path: Path,
+    name: str,
+    verbose: Union[bool, int, float],
+) -> Path:
 
     name_to_find = name
     starting_dir = Path(path).resolve()
     assert starting_dir.is_dir()
     if verbose:
         ic(starting_dir)
-    assert '/' not in name_to_find
+    assert "/" not in name_to_find
     name_to_find = Path(name_to_find)
     if verbose:
         ic(name_to_find)
@@ -34,19 +40,44 @@ def walkup_until_found(*,
             raise FileNotFoundError(name_to_find)
 
 
-
 @click.command()
-@click.argument("starting_dir", type=click.Path(exists=True,
-                                                dir_okay=True,
-                                                file_okay=False,
-                                                path_type=Path,
-                                                allow_dash=True,), nargs=1, required=True,)
+@click.argument(
+    "starting_dir",
+    type=click.Path(
+        exists=True,
+        dir_okay=True,
+        file_okay=False,
+        path_type=Path,
+        allow_dash=True,
+    ),
+    nargs=1,
+    required=True,
+)
 @click.argument("name_to_find", type=str, nargs=1, required=True)
-@click.option('--verbose', is_flag=True)
-def cli(starting_dir: Path,
-        name_to_find: str,
-        verbose: bool,
-        ):
+@click.option("--verbose", is_flag=True)
+@click_add_options(click_global_options)
+@click.pass_context
+def cli(
+    ctx,
+    *starting_dir: Path,
+    name_to_find: str,
+    verbose: Union[bool, int, float],
+    verbose_inf: bool,
+):
 
-    result = walkup_until_found(path=starting_dir, name=name_to_find, verbose=verbose,)
-    print(result.as_posix())
+    tty, verbose = tv(
+        ctx=ctx,
+        verbose=verbose,
+        verbose_inf=verbose_inf,
+    )
+
+    result = walkup_until_found(
+        path=starting_dir,
+        name=name_to_find,
+        verbose=verbose,
+    )
+    output(
+        result.as_posix(),
+        tty=tty,
+        verbose=verbose,
+    )
