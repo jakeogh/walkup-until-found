@@ -20,7 +20,8 @@ def walkup_until_found(
 
     name_to_find = name
     starting_dir = Path(path).resolve()
-    assert starting_dir.is_dir()
+    if not starting_dir.is_dir():
+        starting_dir = starting_dir.parent
     if verbose:
         ic(starting_dir)
     assert "/" not in name_to_find
