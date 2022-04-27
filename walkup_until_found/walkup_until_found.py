@@ -4,11 +4,12 @@ from pathlib import Path
 from typing import Union
 
 import click
-from asserttool import ic
+#from asserttool import ic
 from clicktool import click_add_options
 from clicktool import click_global_options
 from clicktool import tv
 from mptool import output
+from epprint import epprint
 
 
 def walkup_until_found(
@@ -23,16 +24,16 @@ def walkup_until_found(
     if not starting_dir.is_dir():
         starting_dir = starting_dir.parent
     if verbose:
-        ic(starting_dir)
+        epprint(starting_dir)
     assert "/" not in name_to_find
     name_to_find = Path(name_to_find)
     if verbose:
-        ic(name_to_find)
+        epprint(name_to_find)
 
     while True:
         path_guess = starting_dir / name_to_find
         if verbose:
-            ic(path_guess)
+            epprint(path_guess)
         if path_guess.exists():
             return path_guess
 
