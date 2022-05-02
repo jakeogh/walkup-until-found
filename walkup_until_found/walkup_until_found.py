@@ -24,17 +24,16 @@ def walkup_until_found(
     if not starting_dir.is_dir():
         starting_dir = starting_dir.parent
     if verbose:
-        epprint(starting_dir)
+        epprint(f"{starting_dir=}")
     assert "/" not in name_to_find
     name_to_find = Path(name_to_find)
     if verbose:
-        epprint(name_to_find)
+        epprint(f"{name_to_find=}")
 
     while True:
         path_guess = starting_dir / name_to_find
-        if verbose:
-            epprint(path_guess)
         if path_guess.exists():
+            epprint("found:", f"{path_guess=}")
             return path_guess
 
         starting_dir = starting_dir.parent
