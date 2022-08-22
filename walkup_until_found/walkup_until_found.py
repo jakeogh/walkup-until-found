@@ -65,7 +65,7 @@ def cli(
     name_to_find: str,
     verbose: Union[bool, int, float],
     verbose_inf: bool,
-    dict_input: bool,
+    dict_output: bool,
 ):
 
     tty, verbose = tv(
@@ -83,7 +83,7 @@ def cli(
     output(
         result.as_posix(),
         reason=name_to_find,
-        dict_input=dict_input,
+        dict_output=dict_output,
         tty=tty,
         verbose=verbose,
     )
