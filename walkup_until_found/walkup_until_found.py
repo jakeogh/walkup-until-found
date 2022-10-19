@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 from pathlib import Path
-from typing import Union
 
 import click
-# from asserttool import ic
 from clicktool import click_add_options
 from clicktool import click_global_options
 from clicktool import tv
@@ -12,11 +12,11 @@ from epprint import epprint
 from mptool import output
 
 
-def walkup-until-found(
+def walkup_until_found(
     *,
     path: Path,
     name: str,
-    verbose: Union[bool, int, float],
+    verbose: bool | int | float,
 ) -> Path:
 
     name_to_find = name
@@ -63,7 +63,7 @@ def cli(
     *,
     starting_dir: Path,
     name_to_find: str,
-    verbose: Union[bool, int, float],
+    verbose: bool | int | float,
     verbose_inf: bool,
     dict_output: bool,
 ):
@@ -74,7 +74,7 @@ def cli(
         verbose_inf=verbose_inf,
     )
 
-    result = walkup-until-found(
+    result = walkup_until_found(
         path=starting_dir,
         name=name_to_find,
         verbose=verbose,
