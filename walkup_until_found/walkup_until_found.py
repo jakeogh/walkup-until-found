@@ -12,7 +12,7 @@ from epprint import epprint
 from mptool import output
 
 
-def walkup_until_found(
+def walkup-until-found(
     *,
     path: Path,
     name: str,
@@ -74,7 +74,7 @@ def cli(
         verbose_inf=verbose_inf,
     )
 
-    result = walkup_until_found(
+    result = walkup-until-found(
         path=starting_dir,
         name=name_to_find,
         verbose=verbose,

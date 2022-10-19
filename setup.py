@@ -10,8 +10,8 @@ dependencies = ["icecream", "click", "colorama"]
 
 config = {
     "version": "0.1",
-    "name": "walkup_until_found",
-    "url": "https://github.com/jakeogh/walkup_until_found",
+    "name": "walkup-until-found",
+    "url": "https://github.com/jakeogh/walkup-until-found",
     "license": "ISC",
     "author": "Justin Keogh",
     "author_email": "github.com@v6y.net",
@@ -24,7 +24,7 @@ config = {
     "install_requires": dependencies,
     "entry_points": {
         "console_scripts": [
-            "walkup_until_found=walkup_until_found.walkup_until_found:cli",
+            "walkup-until-found=walkup-until-found.walkup-until-found:cli",
         ],
     },
 }
