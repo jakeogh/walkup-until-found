@@ -11,7 +11,6 @@ from clicktool import tv
 from epprint import epprint
 from mptool import output
 
-
 def walkup_until_found(
     *,
     path: Path,
