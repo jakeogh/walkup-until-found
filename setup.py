@@ -24,7 +24,7 @@ config = {
     "install_requires": dependencies,
     "entry_points": {
         "console_scripts": [
-            "walkup-until-found=walkup-until-found.walkup-until-found:cli",
+            "walkup-until-found=walkup_until_found.walkup_until_found:cli",
         ],
     },
 }
