@@ -32,7 +32,8 @@ def walkup_until_found(
     while True:
         path_guess = starting_dir / name_to_find
         if path_guess.exists():
-            epprint("found:", f"{path_guess=}")
+            if verbose:
+                epprint("found:", f"{path_guess=}")
             return path_guess
 
         starting_dir = starting_dir.parent
