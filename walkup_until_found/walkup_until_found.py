@@ -11,13 +11,13 @@ from clicktool import tv
 from epprint import epprint
 from mptool import output
 
+
 def walkup_until_found(
     *,
     path: Path,
     name: str,
-    verbose: bool | int | float,
+    verbose: bool | int | float = False,
 ) -> Path:
-
     name_to_find = name
     starting_dir = Path(path).resolve()
     if not starting_dir.is_dir():
@@ -55,7 +55,6 @@ def walkup_until_found(
     required=True,
 )
 @click.argument("name_to_find", type=str, nargs=1, required=True)
-@click.option("--verbose", is_flag=True)
 @click_add_options(click_global_options)
 @click.pass_context
 def cli(
@@ -63,11 +62,10 @@ def cli(
     *,
     starting_dir: Path,
     name_to_find: str,
-    verbose: bool | int | float,
     verbose_inf: bool,
     dict_output: bool,
+    verbose: bool | int | float = False,
 ):
-
     tty, verbose = tv(
         ctx=ctx,
         verbose=verbose,
@@ -77,7 +75,6 @@ def cli(
     result = walkup_until_found(
         path=starting_dir,
         name=name_to_find,
-        verbose=verbose,
     )
 
     output(
@@ -85,5 +82,4 @@ def cli(
         reason=name_to_find,
         dict_output=dict_output,
         tty=tty,
-        verbose=verbose,
     )
